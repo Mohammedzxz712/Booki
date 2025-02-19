@@ -54,6 +54,7 @@ class Logout extends StatelessWidget {
 
                     child: Text('Logout' , style: TextStyle(color: Colors.red, fontSize: 16.sp, fontWeight: FontWeight.w600)),
                   ),
+
                 ],
               ),
             ],
