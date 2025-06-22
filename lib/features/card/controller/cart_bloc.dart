@@ -1,13 +1,27 @@
 import 'package:bloc/bloc.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:meta/meta.dart';
 
-part 'cart_event.dart';
-part 'cart_state.dart';
+import '../../../core/utils/utils.dart';
+import '../../book_details/domain/entity/book_details_entity.dart';
+import 'cart_event.dart';
+import 'cart_state.dart';
+
+
+
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc() : super(CartInitial()) {
-    on<CartEvent>((event, emit) {
-      // TODO: implement event handler
+  final Box<BookDetailsEntity> _cartBox = Hive.box<BookDetailsEntity>('cart');
+
+  CartBloc() : super(CartState(carts: const [])) {
+    on<GetCartEvent>((event, emit) {
+      emit(CartState(
+        enCart: EnState.loading,
+      ));
+      emit(CartState(
+        carts: _cartBox.values.toList(),
+        enCart: EnState.loaded,
+      ));
     });
   }
 }

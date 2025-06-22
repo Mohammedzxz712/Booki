@@ -115,7 +115,29 @@ class BookDetailsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                bottomNavigationBar: const BottomNav(),
+                bottomNavigationBar: Container(
+                  padding: const EdgeInsets.all(16),
+                  color: Colors.white,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorsManager.maincolor,
+                      shape:
+                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                    ),
+                    onPressed: () {
+                      context.read<BookDetailsBloc>().add(
+                        AddToCartEvent(
+                          state.bookDetails!,
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Buy Now 📖",
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ),
               );
             case EnState.error:
               return Center(

@@ -17,6 +17,7 @@ class AppTextFormField extends StatelessWidget {
   final Color? backgroundColor;
   final TextEditingController? controller;
   final Function(String?) validator;
+  final Function(String?)? onChanged;
   const AppTextFormField({
     super.key,
     this.contentPadding,
@@ -24,7 +25,9 @@ class AppTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.enabledBorder,
     this.inputTextStyle,
+
     this.hintStyle,
+     this.onChanged,
     required this.hintText,
     this.isObscureText,
     this.suffixIcon,
@@ -37,6 +40,7 @@ class AppTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      onChanged: onChanged,
       decoration: InputDecoration(
         isDense: true,
         contentPadding: contentPadding ??

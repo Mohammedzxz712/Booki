@@ -14,9 +14,14 @@ import '../../controller/home_bloc.dart';
 import '../../controller/home_event.dart';
 import '../../controller/home_state.dart';
 
-class BookCardBestSeller extends StatelessWidget {
+class BookCardBestSeller extends StatefulWidget {
   const BookCardBestSeller({super.key});
 
+  @override
+  State<BookCardBestSeller> createState() => _BookCardBestSellerState();
+}
+
+class _BookCardBestSellerState extends State<BookCardBestSeller> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
@@ -84,6 +89,9 @@ class BookCardBestSeller extends StatelessWidget {
                               child: InkWell(
                                 onTap: (){
                                   context.read<HomeBloc>().add(AddToFavorite(book));
+                                  setState(() {
+
+                                  });
                                 },
                                 child:  Icon(Icons.favorite,
                                     color: Hive.box<BookEntity>('favorites').containsKey(book.id)?Colors.red:Colors.grey, size: 20),

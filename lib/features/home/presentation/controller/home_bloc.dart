@@ -61,9 +61,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } else {
       _favoritesBox.put(book.id, book);
     }
+
     emit(state.copyWith(
-      booksSearch: _favoritesBox.values.toList(),
-      enHomeSearch: EnState.loaded,
+      books:  _favoritesBox.values.toList(),
+      enHome: EnState.loaded,
     ));
   }
 }

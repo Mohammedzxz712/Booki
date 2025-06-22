@@ -3,29 +3,39 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theming/colors.dart';
 import '../../../../../core/utils/utils.dart';
+import '../../../../book_details/presentation/screen/book_details_screen.dart';
+import '../../../domain/entities/book_entitie.dart';
 import '../../controller/home_bloc.dart';
+import '../../controller/home_event.dart';
 import '../../controller/home_state.dart';
 
-class BookCardCategories extends StatelessWidget {
+class BookCardCategories extends StatefulWidget {
+
   const BookCardCategories({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        if (kDebugMode) {
-          print(state.enHome);
-        }
+  State<BookCardCategories> createState() => _BookCardCategoriesState();
+}
 
-        if (state.enHome == EnHome.loading) {
+class _BookCardCategoriesState extends State<BookCardCategories> {
+  @override
+  Widget build(BuildContext context) {
+
+    return BlocBuilder<HomeBloc, HomeState>(
+      buildWhen: (previous, current) =>
+          previous.enHome != current.enHome,
+      builder: (context, state) {
+
+        if (state.enHome == EnState.loading) {
           return const Center(
             child: CircularProgressIndicator(color: ColorsManager.maincolor),
           );
-        } else if (state.enHome == EnHome.error) {
+        } else if (state.enHome == EnState.error) {
           return Center(
             child: Text(state.errorMessage),
           );
@@ -42,35 +52,54 @@ class BookCardCategories extends StatelessWidget {
             itemCount: state.books.length,
             itemBuilder: (context, index) {
               final book = state.books[index];
-
               return Container(
                 width: 120.w,
                 margin: const EdgeInsets.only(right: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Stack(
-                        children: [
-                          SizedBox(
-                            height: 144.h,
-                            width: 128.w,
-                            child: CachedNetworkImage(
-                              imageUrl: book.imageUrl,
-                              fit: BoxFit.fill,
-                              placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator(color: ColorsManager.maincolor),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>  BookDetailsScreen(bookId: state.books[index].id),
+                            ));
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Stack(
+                          children: [
+                            SizedBox(
+                              height: 144.h,
+                              width: 128.w,
+                              child: CachedNetworkImage(
+                                imageUrl: book.imageUrl,
+                                fit: BoxFit.fill,
+                                placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator(
+                                      color: ColorsManager.maincolor),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.broken_image, size: 50),
                               ),
-                              errorWidget: (context, url, error) => const Icon(Icons.broken_image, size: 50),
                             ),
-                          ),
-                          const Positioned(
-                            top: 10,
-                            right: 5,
-                            child: Icon(Icons.favorite, color: Colors.red, size: 20),
-                          ),
-                        ],
+                             Positioned(
+                              top: 10,
+                              right: 5,
+                              child: InkWell(
+                                onTap: (){
+                                  context.read<HomeBloc>().add(AddToFavorite(book ));
+                                  setState(() {
+
+                                  });
+                                },
+                                child:  Icon(Icons.favorite,
+                                    color: Hive.box<BookEntity>('favorites').containsKey(book.id)?Colors.red:Colors.grey, size: 20),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     verticalSpace(5),
@@ -88,13 +117,23 @@ class BookCardCategories extends StatelessWidget {
                       width: 144,
                       child: Row(
                         children: [
-                          const Icon(Icons.star, color: Colors.yellow, size: 16),
+                          const Icon(Icons.star,
+                              color: Colors.yellow, size: 16),
                           Text(book.rate.toString()),
                           const Spacer(),
-                          Text(
-                            '\$${book.price}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                          RichText(
+                              text: TextSpan(
+                            text: 'EG ',
+                            style: const TextStyle(
+                                color: ColorsManager.maincolor, fontSize: 11),
+                            children: [
+                              TextSpan(
+                                text: '${book.price}',
+                                style: const TextStyle(
+                                    color: ColorsManager.maincolor),
+                              ),
+                            ],
+                          )),
                           horizontalSpace(3),
                         ],
                       ),

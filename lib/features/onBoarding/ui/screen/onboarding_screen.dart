@@ -1,4 +1,4 @@
-import 'package:bookly/core/utils/onBoarding_list.dart';
+import 'package:bookly/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../widgets/custom_indecator.dart';

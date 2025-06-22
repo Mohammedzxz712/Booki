@@ -16,7 +16,6 @@ class HomeState extends Equatable {
   List<BookEntity> booksSearch;
   EnState enHomeSearch;
 
-
   HomeState({
     this.errorMessage = '',
     this.books = const [],
@@ -31,7 +30,7 @@ class HomeState extends Equatable {
 
 
   @override
-  List<Object> get props => [ errorMessage, books, enHome, errorMessageBestSeller, booksBestSeller, enHomeBestSeller, errorMessageSearch, booksSearch, enHomeSearch];
+  List<Object> get props => [ errorMessage,  books, enHome, errorMessageBestSeller, booksBestSeller, enHomeBestSeller, errorMessageSearch, booksSearch, enHomeSearch];
 
   HomeState copyWith({
     String? errorMessage,
@@ -43,7 +42,7 @@ class HomeState extends Equatable {
     String? errorMessageSearch,
     List<BookEntity>? booksSearch,
     EnState? enHomeSearch,
-
+    List<String>? favoritesIds,
   }) {
     return HomeState(
         errorMessage: errorMessage ?? this.errorMessage,

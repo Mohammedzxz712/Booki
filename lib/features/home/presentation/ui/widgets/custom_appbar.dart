@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/helpers/spacing.dart';
-import '../../../../core/theming/colors.dart';
-import '../../../../generated/assets.dart';
+import '../../../../../core/helpers/spacing.dart';
+import '../../../../../core/theming/colors.dart';
+import '../../../../../generated/assets.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/spacing.dart';
-import '../../../../core/utils/onBoarding_list.dart';
+import '../../../../core/utils/utils.dart';
 
 class PageItem extends StatelessWidget {
   final int index;
