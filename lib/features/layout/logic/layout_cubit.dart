@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../home/ui/screen/home_screen.dart';
+import '../../home/presentation/ui/screen/home_screen.dart';
 import '../../profile/logic/profile_cubit.dart';
 import '../../profile/ui/screen/profile_screen.dart';
 import 'layout_state.dart';

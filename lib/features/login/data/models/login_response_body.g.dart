@@ -19,17 +19,17 @@ LoginResponseBody _$LoginResponseBodyFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$LoginResponseBodyToJson(LoginResponseBody instance) =>
     <String, dynamic>{
       'status': instance.status,
-      'message': instance.message,
       'code': instance.code,
+      'message': instance.message,
       'data': instance.userData,
     };
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       token: json['token'] as String?,
-      userName: json['username'] as String?,
+      userNameFromJson: json['username'] as String?,
     );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'token': instance.token,
-      'username': instance.userName,
+      'username': instance.userNameFromJson,
     };

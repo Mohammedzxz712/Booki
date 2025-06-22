@@ -1,3 +1,4 @@
+import 'package:bookly/features/book_details/domain/entity/book_details_entity.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,22 +11,18 @@ class CartItem extends StatelessWidget {
     required this.order,
   });
 
-  final Map<String, String> order;
+  final BookDetailsEntity order;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 104,
       padding: EdgeInsets.all(12.h),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            blurRadius: 6,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        border: Border.all(color: Colors.grey,width: 1),
+
       ),
       child: Row(
         children: [
@@ -33,7 +30,7 @@ class CartItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: CachedNetworkImage(
-              imageUrl: order['imageUrl']!,
+              imageUrl: order.imageUrl??'',
               width: 80.w,
               height: 100.h,
               fit: BoxFit.cover,
@@ -46,15 +43,21 @@ class CartItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  order['title']!,
+                  order.name??'',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: 16.sp,
+
+                    fontSize: 14.sp,
+
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 verticalSpace(3),
                 Text(
-                  order['author']!,
+                  order.author??'',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: Colors.grey,
@@ -62,7 +65,7 @@ class CartItem extends StatelessWidget {
                 ),
                 verticalSpace(3),
                 Text(
-                  order['price']!,
+                  '${order.price} \$',
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,

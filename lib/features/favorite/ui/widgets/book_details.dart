@@ -1,3 +1,4 @@
+import 'package:bookly/features/home/domain/entities/book_entitie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,8 +7,8 @@ import '../../../../core/theming/styles.dart';
 
 class BookDetails extends StatelessWidget {
 
-  Map<String ,dynamic> book ;
-  BookDetails({super.key, required this.book});
+  BookEntity? book ;
+  BookDetails({super.key,   this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -16,32 +17,34 @@ class BookDetails extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          book['title']!,
+          book?.title??'unknown',
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyles.font16BlackBold,
         ),
         verticalSpace(4),
         Text(
-          book['description']!,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyles.font12GrayRegular,
-        ),
-        verticalSpace(4),
-        Text(
-          book['date']!,
+          book?.author??'unknown',
           style: TextStyle(
             fontSize: 12.sp,
             color: Colors.grey,
           ),
         ),
+        verticalSpace(4),
+        Text(
+          book?.description??'',
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyles.font12GrayRegular,
+        ),
+
+
         Row(
           children: [
             const Icon(Icons.star, color: Colors.yellow, size: 16),
-            Text('4.5', style: TextStyles.font12GrayRegular),
+            Text(book?.rate.toString()??'0.0'.toString(), style: TextStyles.font12GrayRegular),
             const Spacer(),
-            Text('\$10.99', style: TextStyles.font12GrayRegular),
+            Text('\$${book?.price}'??'0.0', style: TextStyles.font12GrayRegular),
           ],
         ),
       ],
