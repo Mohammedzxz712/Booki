@@ -39,22 +39,30 @@ class Logout extends StatelessWidget {
                       Navigator.of(context).pop(); // Close Bottom Sheet
                     },
                     style: const ButtonStyle(
-                      side: MaterialStatePropertyAll(BorderSide(color:Color(0xff303030))),
+                      side: MaterialStatePropertyAll(
+                          BorderSide(color: Color(0xff303030))),
                     ),
-                    child: Text('Cancel' , style: TextStyle(color: const Color(0xff303030), fontSize: 16.sp, fontWeight: FontWeight.w600)),
+                    child: Text('Cancel',
+                        style: TextStyle(
+                            color: const Color(0xff303030),
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600)),
                   ),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop(); // Close Bottom Sheet
                       // Perform logout action here
                     },
-                   style: const ButtonStyle(
-                     side: MaterialStatePropertyAll(BorderSide(color: Colors.red)),
-                   ),
-
-                    child: Text('Logout' , style: TextStyle(color: Colors.red, fontSize: 16.sp, fontWeight: FontWeight.w600)),
+                    style: const ButtonStyle(
+                      side: MaterialStatePropertyAll(
+                          BorderSide(color: Colors.red)),
+                    ),
+                    child: Text('Logout',
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600)),
                   ),
-
                 ],
               ),
             ],
