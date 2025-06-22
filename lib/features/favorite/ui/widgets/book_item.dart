@@ -1,3 +1,4 @@
+import 'package:bookly/features/home/domain/entities/book_entitie.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,14 +8,14 @@ import '../../../../core/theming/colors.dart';
 import 'book_details.dart';
 
 class BookItem extends StatelessWidget {
-  Map <String, dynamic> book;
+  BookEntity? book;
   int index;
   void Function(int index) removeBook;
-  BookItem({super.key, required this.book, required this.index, required this.removeBook});
+  BookItem({super.key,  this.book, required this.index, required this.removeBook});
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key: Key(book['title']!),
+      key: Key(book!.id),
       direction: DismissDirection.endToStart,
       onDismissed: (direction) => removeBook(index),
       background:Container(
@@ -40,7 +41,7 @@ class BookItem extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: CachedNetworkImage(
-                imageUrl: book['imageUrl']!,
+                imageUrl: book!.imageUrl,
                 fit: BoxFit.cover,
                 width: 100.w,
                 height: 120.h,
